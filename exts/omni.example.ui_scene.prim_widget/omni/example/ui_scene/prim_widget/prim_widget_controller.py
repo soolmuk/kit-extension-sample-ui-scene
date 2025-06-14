@@ -13,17 +13,18 @@ from typing import Dict, List
 
 class PrimWidgetController:
     """
-    Controller class that provides public API for managing prim widgets.
+    Controller class that provides public API for managing multiple prim widgets.
     This class can be used by external code to control widget visibility.
+    Supports multiple widgets simultaneously.
     """
     
-    def __init__(self, model):
-        self._model = model
-        self._active_widgets: Dict[str, bool] = {}
+    def __init__(self, multi_widget_manager):
+        self._manager = multi_widget_manager
     
     def show_widget(self, prim_path: str) -> bool:
         """
         Show a widget for the specified prim path.
+        Multiple widgets can be active simultaneously.
         
         Args:
             prim_path: USD prim path (e.g., "/World/Cube")
@@ -31,39 +32,19 @@ class PrimWidgetController:
         Returns:
             True if successful, False otherwise
         """
-        try:
-            self._model.set_prim_path(prim_path)
-            self._model.set_enabled(True)
-            self._active_widgets[prim_path] = True
-            return True
-        except Exception as e:
-            print(f"Failed to show widget for {prim_path}: {e}")
-            return False
+        return self._manager.show_widget(prim_path)
     
-    def hide_widget(self, prim_path: str = None) -> bool:
+    def hide_widget(self, prim_path: str) -> bool:
         """
-        Hide the widget for the specified prim path, or hide current widget if no path given.
+        Hide the widget for the specified prim path.
         
         Args:
-            prim_path: USD prim path to hide. If None, hides currently displayed widget.
+            prim_path: USD prim path to hide
             
         Returns:
             True if successful, False otherwise
         """
-        try:
-            if prim_path is None:
-                # Hide current widget
-                current_path = self._model.get_prim_path()
-                if current_path:
-                    self._active_widgets[current_path] = False
-            else:
-                self._active_widgets[prim_path] = False
-                
-            self._model.set_enabled(False)
-            return True
-        except Exception as e:
-            print(f"Failed to hide widget: {e}")
-            return False
+        return self._manager.hide_widget(prim_path)
     
     def toggle_widget(self, prim_path: str) -> bool:
         """
@@ -75,55 +56,58 @@ class PrimWidgetController:
         Returns:
             True if now visible, False if now hidden
         """
-        current_path = self._model.get_prim_path()
-        is_enabled = self._model.is_enabled()
-        
-        if current_path == prim_path and is_enabled:
-            # Currently showing this prim, so hide it
-            self.hide_widget(prim_path)
-            return False
-        else:
-            # Either showing different prim or not showing anything, so show this prim
-            self.show_widget(prim_path)
-            return True
+        return self._manager.toggle_widget(prim_path)
     
-    def is_widget_visible(self, prim_path: str = None) -> bool:
+    def is_widget_visible(self, prim_path: str) -> bool:
         """
         Check if a widget is currently visible.
         
         Args:
-            prim_path: USD prim path to check. If None, checks currently displayed widget.
+            prim_path: USD prim path to check
             
         Returns:
             True if visible, False otherwise
         """
-        if prim_path is None:
-            return self._model.is_enabled()
-        
-        current_path = self._model.get_prim_path()
-        return current_path == prim_path and self._model.is_enabled()
+        return self._manager.is_widget_visible(prim_path)
     
-    def get_current_prim_path(self) -> str:
+    def get_visible_widgets(self) -> List[str]:
         """
-        Get the prim path of the currently displayed widget.
+        Get list of currently visible widget prim paths.
         
         Returns:
-            Current prim path, or empty string if no widget is displayed
+            List of visible prim paths
         """
-        if self._model.is_enabled():
-            return self._model.get_prim_path()
-        return ""
+        return self._manager.get_visible_widgets()
     
-    def get_active_widgets(self) -> List[str]:
+    def get_all_widgets(self) -> List[str]:
         """
-        Get list of prim paths that have been marked as active.
+        Get list of all widget prim paths (visible and hidden).
         
         Returns:
-            List of prim paths
+            List of all prim paths
         """
-        return [path for path, active in self._active_widgets.items() if active]
+        return self._manager.get_all_widgets()
+    
+    def remove_widget(self, prim_path: str) -> bool:
+        """
+        Completely remove a widget (not just hide).
+        
+        Args:
+            prim_path: USD prim path
+            
+        Returns:
+            True if removed, False if not found
+        """
+        return self._manager.remove_widget(prim_path)
     
     def clear_all_widgets(self):
-        """Clear all widget states and hide current widget."""
-        self._model.set_enabled(False)
-        self._active_widgets.clear()
+        """Clear all widget states and remove all widgets."""
+        self._manager.clear_all_widgets()
+    
+    def hide_all_widgets(self):
+        """Hide all widgets without removing them."""
+        self._manager.hide_all_widgets()
+    
+    def show_all_widgets(self):
+        """Show all existing widgets."""
+        self._manager.show_all_widgets()

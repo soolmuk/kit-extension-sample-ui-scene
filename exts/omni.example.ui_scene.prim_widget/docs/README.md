@@ -44,6 +44,23 @@
 External Code → PrimWidgetController → PrimWidgetModel → PrimWidgetManipulator → 3D Viewport
 ```
 
+## 빠른 시작 (Quick Start) 🚀
+
+간단하게 바로 사용하고 싶다면:
+
+```python
+import omni.example.ui_scene.prim_widget as widget
+
+# 한 줄로 위젯 표시!
+widget.show_widget("/World/Cube")
+
+# 또는 클래스 스타일로!
+from omni.example.ui_scene.prim_widget import SimpleWidget
+cube = SimpleWidget("/World/Cube", True)  # 생성과 동시에 표시!
+```
+
+> 📚 **더 자세한 사용법**: [QuickStart.md](QuickStart.md) 문서를 확인하세요!
+
 ## 설치 및 활성화 (Installation & Activation)
 
 1. 확장 디렉토리를 Omniverse Kit의 확장 경로에 복사

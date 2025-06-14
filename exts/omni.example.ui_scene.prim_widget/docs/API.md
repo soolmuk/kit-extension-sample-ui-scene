@@ -1,6 +1,41 @@
 # API 문서 (API Documentation)
 
-## PrimWidgetController 클래스
+> 🚀 **빠른 시작**: 간단한 사용법을 원한다면 [QuickStart.md](QuickStart.md)를 먼저 보세요!
+
+## 간편 함수들 (Simple Functions) ✨
+
+가장 쉬운 방법입니다!
+
+```python
+import omni.example.ui_scene.prim_widget as widget
+
+# 기본 함수들
+widget.show_widget("/World/Cube")     # 위젯 표시
+widget.hide_widget("/World/Cube")     # 위젯 숨김  
+widget.toggle_widget("/World/Cube")   # 위젯 토글
+controller = widget.get_controller()  # 전체 컨트롤러 가져오기
+```
+
+## SimpleWidget 클래스 🎨
+
+클래스 스타일로 사용하고 싶을 때!
+
+```python
+from omni.example.ui_scene.prim_widget import SimpleWidget
+
+# 생성자
+SimpleWidget(prim_path: str, show: bool = True)
+
+# 메서드들
+cube = SimpleWidget("/World/Cube", True)
+cube.show()         # 표시
+cube.hide()         # 숨김
+cube.toggle()       # 토글
+cube.is_visible()   # 상태 확인
+print(cube)         # 현재 상태 출력
+```
+
+## PrimWidgetController 클래스 (고급 기능)
 
 `PrimWidgetController`는 prim 위젯을 제어하기 위한 메인 API 클래스입니다.
 

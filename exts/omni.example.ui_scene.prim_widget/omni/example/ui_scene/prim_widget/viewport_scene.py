@@ -12,18 +12,17 @@ __all__ = ["ViewportScene"]
 from omni.ui import scene as sc
 import omni.ui as ui
 
-from .prim_widget_manipulator import PrimWidgetManipulator
-from .prim_widget_model import PrimWidgetModel
+from .multi_widget_manager import MultiWidgetManager
 from .prim_widget_controller import PrimWidgetController
 
 
 class ViewportScene:
-    """The Prim Widget Manipulator, placed into a Viewport"""
+    """The Multi Prim Widget Scene, placed into a Viewport"""
 
     def __init__(self, viewport_window: ui.Window, ext_id: str) -> None:
         self._scene_view = None
         self._viewport_window = viewport_window
-        self._model = None
+        self._manager = None
         self._controller = None
 
         # Create a unique frame for our SceneView
@@ -31,13 +30,9 @@ class ViewportScene:
             # Create a default SceneView (it has a default camera-model)
             self._scene_view = sc.SceneView()
             
-            # Create model and controller
-            self._model = PrimWidgetModel()
-            self._controller = PrimWidgetController(self._model)
-            
-            # Add the manipulator into the SceneView's scene
-            with self._scene_view.scene:
-                PrimWidgetManipulator(model=self._model)
+            # Create manager and controller
+            self._manager = MultiWidgetManager(self._scene_view)
+            self._controller = PrimWidgetController(self._manager)
 
             # Register the SceneView with the Viewport to get projection and view updates
             self._viewport_window.viewport_api.add_scene_view(self._scene_view)
@@ -56,7 +51,7 @@ class ViewportScene:
         # Clean up references
         self._viewport_window = None
         self._scene_view = None
-        self._model = None
+        self._manager = None
         self._controller = None
     
     def get_widget_controller(self) -> PrimWidgetController:

@@ -1,10 +1,14 @@
-# 사용 예제 (Usage Examples)
+# 사용 예제 (Usage Examples) 🎨
 
 이 문서는 `omni.example.ui_scene.prim_widget` 확장의 다양한 사용 예제를 제공합니다.
 
+> 💡 **귀여운 팁**: 각 예제마다 언제 사용하면 좋은지 귀엽게 설명해드릴게요! 🐾
+
 ## 기본 사용법 (Basic Usage)
 
-### 1. 컨트롤러 설정 및 초기화
+### 1. 컨트롤러 설정 및 초기화 🚀
+
+> 🌟 **언제 사용해요?**: 처음 시작할 때! 마치 새로운 장난감을 꺼내서 조립하는 기분이에요 ✨
 
 ```python
 import omni.ext
@@ -23,7 +27,9 @@ def get_widget_controller():
 controller = get_widget_controller()
 ```
 
-### 2. 단순 위젯 표시/숨김
+### 2. 단순 위젯 표시/숨김 👁️‍🗨️
+
+> 🎪 **언제 사용해요?**: "잠깐만, 저 큐브 정보 좀 볼까?" 할 때! 마치 호기심 많은 고양이처럼 prim을 관찰하고 싶을 때 써요 🐱
 
 ```python
 # 위젯 표시
@@ -39,7 +45,9 @@ async def hide_after_delay():
 asyncio.create_task(hide_after_delay())
 ```
 
-### 3. 위젯 상태 토글
+### 3. 위젯 상태 토글 🎭
+
+> 🔀 **언제 사용해요?**: "음... 보였다 안 보였다 하고 싶어!" 할 때! 마치 까꿍 놀이하는 아기처럼 위젯을 껐다 켰다 하고 싶을 때 완벽해요 👶
 
 ```python
 # 클릭할 때마다 위젯 토글하는 함수
@@ -55,7 +63,9 @@ toggle_cube_widget()
 
 ## 고급 사용법 (Advanced Usage)
 
-### 1. 다중 Prim 위젯 관리
+### 1. 다중 Prim 위젯 관리 🎠
+
+> 🎪 **언제 사용해요?**: "어머, 이 scene에 있는 여러 물체들을 차례차례 보고 싶어!" 할 때! 마치 회전목마 타듯이 여러 prim을 순서대로 구경하고 싶을 때 최고예요 🎡
 
 ```python
 class MultiPrimWidgetManager:
@@ -102,7 +112,9 @@ manager.show_next_widget()  # Sphere 표시
 manager.show_next_widget()  # Cylinder 표시
 ```
 
-### 2. 선택 기반 위젯 자동 표시
+### 2. 선택 기반 위젯 자동 표시 🎯
+
+> 🐕 **언제 사용해요?**: "내가 클릭하는 것마다 자동으로 정보가 나왔으면 좋겠어!" 할 때! 마치 충성스러운 강아지처럼 당신이 선택하는 모든 것을 따라다니며 정보를 보여줄 때 써요 🐕‍🦺
 
 ```python
 import omni.usd
@@ -147,7 +159,9 @@ auto_widget = SelectionBasedWidget(controller)
 # auto_widget.destroy()
 ```
 
-### 3. 조건부 위젯 표시
+### 3. 조건부 위젯 표시 🔍
+
+> 🕵️ **언제 사용해요?**: "메쉬만 보고 싶어!" 또는 "조명만 체크하고 싶어!" 할 때! 마치 탐정처럼 특정 종류의 물체들만 골라서 조사하고 싶을 때 완벽해요 🔎
 
 ```python
 import omni.usd
@@ -184,7 +198,9 @@ def show_widget_for_mesh_prims():
 show_widget_for_mesh_prims()
 ```
 
-### 4. 위젯 상태 모니터링
+### 4. 위젯 상태 모니터링 📊
+
+> 🤖 **언제 사용해요?**: "지금 뭐가 켜져있고 꺼져있는지 계속 확인하고 싶어!" 할 때! 마치 부지런한 로봇 비서처럼 위젯 상태를 실시간으로 체크하고 싶을 때 써요 📱
 
 ```python
 class WidgetStatusMonitor:
@@ -230,7 +246,9 @@ monitor.stop_monitoring()
 
 ## 실전 통합 예제 (Real-world Integration)
 
-### UI 윈도우와 통합
+### UI 윈도우와 통합 🖥️
+
+> 🎨 **언제 사용해요?**: "버튼으로 클릭클릭하면서 위젯을 조작하고 싶어!" 할 때! 마치 예쁜 리모컨처럼 GUI로 위젯들을 편리하게 제어하고 싶을 때 최고예요 🎮
 
 ```python
 import omni.ui as ui
@@ -305,4 +323,12 @@ class PrimWidgetUI:
 widget_ui = PrimWidgetUI(controller)
 ```
 
-이러한 예제들을 통해 다양한 상황에서 prim widget controller를 활용할 수 있습니다.
+## 마무리 🎉
+
+이러한 예제들을 통해 다양한 상황에서 prim widget controller를 활용할 수 있습니다!
+
+> 🌈 **최종 팁**: 각 예제는 레고 블록처럼 조합해서 사용할 수 있어요! 
+> - 기본 사용법으로 시작해서 → 고급 기능을 추가하고 → UI까지 만들면 완벽! 
+> - 마치 요리하듯이 필요한 재료(함수)들을 골라서 맛있는 요리(기능)를 만들어보세요 👨‍🍳✨
+
+**즐거운 위젯 라이프 되세요!** 🎊🎈
